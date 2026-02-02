@@ -1,3 +1,10 @@
+--Create Database
+IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'AssessmentDb')
+BEGIN
+    CREATE DATABASE AssessmentDb;
+END
+GO
+
 -- Roles
 CREATE TABLE dbo.Roles
 (
@@ -115,4 +122,5 @@ BEGIN
             FOREIGN KEY (ProviderId) REFERENCES dbo.PaymentProviders(Id)
     );
 END
+
 GO
