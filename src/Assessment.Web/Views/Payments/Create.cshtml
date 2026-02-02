@@ -93,30 +93,3 @@
     </div>
 </div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        (function () {
-            // Prevent non-digit characters for inputs flagged with data-digit-only
-            document.querySelectorAll('[data-digit-only="true"]').forEach(function (el) {
-                el.addEventListener('input', function (e) {
-                    const max = el.getAttribute('maxlength');
-                    let v = el.value.replace(/\D+/g, '');
-                    if (max) v = v.slice(0, parseInt(max, 10));
-                    if (el.value !== v) el.value = v;
-                });
-                el.addEventListener('keydown', function (e) {
-                    // Allow control keys, block e, +, - which number inputs accept
-                    if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault();
-                });
-            });
-
-            // Harden number fields (like Amount) to avoid e/E/+/-
-            document.querySelectorAll('input[type="number"]').forEach(function (el) {
-                el.addEventListener('keydown', function (e) {
-                    if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault();
-                });
-            });           
-        })();
-    </script>
-}
