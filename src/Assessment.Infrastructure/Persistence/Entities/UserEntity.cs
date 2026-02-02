@@ -9,7 +9,6 @@ public class UserEntity
     public bool EmailConfirmed { get; set; }
 
     public string? PasswordHash { get; set; }
-    public string? SecurityStamp { get; set; }
 
     public string? PhoneNumber { get; set; }
     public bool PhoneNumberConfirmed { get; set; }
