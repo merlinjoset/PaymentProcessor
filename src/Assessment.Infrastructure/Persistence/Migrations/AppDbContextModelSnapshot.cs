@@ -46,6 +46,16 @@ namespace Assessment.Infrastructure.Persistence.Migrations
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
 
+                    b.Property<int?>("CardExpMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CardExpYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardLast4")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
                     b.Property<string>("LastError")
                         .HasColumnType("nvarchar(max)");
 
@@ -299,7 +309,6 @@ namespace Assessment.Infrastructure.Persistence.Migrations
 
                     b.Navigation("UserTokens");
                 });
-#pragma warning restore 612, 618
         }
     }
 }
