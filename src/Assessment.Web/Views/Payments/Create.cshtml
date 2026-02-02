@@ -116,29 +116,7 @@
                 el.addEventListener('keydown', function (e) {
                     if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault();
                 });
-            });
-
-            // Client-side Luhn validation for immediate feedback (server still validates)
-            function luhnValid(num) {
-                let sum = 0, dbl = false;
-                for (let i = num.length - 1; i >= 0; i--) {
-                    let d = num.charCodeAt(i) - 48; // '0' -> 48
-                    if (dbl) { d *= 2; if (d > 9) d -= 9; }
-                    sum += d; dbl = !dbl;
-                }
-                return sum % 10 === 0;
-            }
-            const card = document.getElementById('CardNumber');
-            if (card) {
-                card.addEventListener('input', function () {
-                    const digits = card.value.replace(/\D+/g, '');
-                    if (digits.length >= 13 && digits.length <= 19) {
-                        card.setCustomValidity(luhnValid(digits) ? '' : 'Invalid card number');
-                    } else {
-                        card.setCustomValidity('');
-                    }
-                });
-            }
+            });           
         })();
     </script>
 }
