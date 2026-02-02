@@ -86,7 +86,7 @@
                                 <td>
                                     @if (p.CardExpMonth.HasValue && p.CardExpYear.HasValue)
                                     {
-                                        <span class="text-muted">@p.CardExpMonth.Value.ToString("00")/@(p.CardExpYear.Value % 100).ToString("00")</span>
+                                        <span class="text-muted">@p.CardExpMonth.Value.ToString("00")/@(p.CardExpYear.Value % 100)</span>
                                     }
                                     else { <span class="text-muted">-</span> }
                                 </td>
