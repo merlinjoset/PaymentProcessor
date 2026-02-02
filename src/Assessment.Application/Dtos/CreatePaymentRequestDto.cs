@@ -50,5 +50,27 @@ public class CreatePaymentRequestDto : IValidatableObject
         {
             yield return new ValidationResult("Card has expired.", new[] { nameof(ExpiryMonth), nameof(ExpiryYear) });
         }
+
+        // Luhn check for PAN (only if digit count looks valid)
+        var num = CardNumber ?? string.Empty;
+        var digitsOnly = new string(num.Where(char.IsDigit).ToArray());
+        if (digitsOnly.Length >= 13 && digitsOnly.Length <= 19)
+        {
+            int sum = 0;
+            bool dbl = false;
+            for (int i = digitsOnly.Length - 1; i >= 0; i--)
+            {
+                int d = digitsOnly[i] - '0';
+                if (dbl)
+                {
+                    d *= 2;
+                    if (d > 9) d -= 9;
+                }
+                sum += d;
+                dbl = !dbl;
+            }
+            if (sum % 10 != 0)
+                yield return new ValidationResult("Invalid card number.", new[] { nameof(CardNumber) });
+        }
     }
 }

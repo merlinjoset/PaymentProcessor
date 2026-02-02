@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Amount</label>
-                            <input asp-for="Amount" class="form-control" placeholder="0.00" />
+                            <input asp-for="Amount" class="form-control" placeholder="0.00" type="number" step="0.01" min="0.01" inputmode="decimal" />
                             <span asp-validation-for="Amount" class="text-danger small"></span>
                         </div>
 
@@ -61,22 +61,22 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <label class="form-label">Card Number</label>
-                            <input asp-for="CardNumber" class="form-control" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" />
+                            <input asp-for="CardNumber" class="form-control" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" pattern="^\d{13,19}$" maxlength="19" data-digit-only="true" />
                             <span asp-validation-for="CardNumber" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Expiry Month</label>
-                            <input asp-for="ExpiryMonth" class="form-control" inputmode="numeric" placeholder="MM" autocomplete="cc-exp-month" />
+                            <input asp-for="ExpiryMonth" class="form-control" inputmode="numeric" placeholder="MM" autocomplete="cc-exp-month" type="number" min="1" max="12" maxlength="2" data-digit-only="true" />
                             <span asp-validation-for="ExpiryMonth" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Expiry Year</label>
-                            <input asp-for="ExpiryYear" class="form-control" inputmode="numeric" placeholder="YYYY" autocomplete="cc-exp-year" />
+                            <input asp-for="ExpiryYear" class="form-control" inputmode="numeric" placeholder="YYYY" autocomplete="cc-exp-year" type="number" min="2020" max="2100" maxlength="4" data-digit-only="true" />
                             <span asp-validation-for="ExpiryYear" class="text-danger small"></span>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">CVC</label>
-                            <input asp-for="Cvv" class="form-control" inputmode="numeric" placeholder="CVV" autocomplete="cc-csc" />
+                            <label class="form-label">CVV</label>
+                            <input asp-for="Cvv" class="form-control" inputmode="numeric" placeholder="CVV" autocomplete="cc-csc" pattern="^\d{3}$" maxlength="3" data-digit-only="true" />
                             <span asp-validation-for="Cvv" class="text-danger small"></span>
                         </div>
                     </div>
@@ -95,4 +95,50 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            // Prevent non-digit characters for inputs flagged with data-digit-only
+            document.querySelectorAll('[data-digit-only="true"]').forEach(function (el) {
+                el.addEventListener('input', function (e) {
+                    const max = el.getAttribute('maxlength');
+                    let v = el.value.replace(/\D+/g, '');
+                    if (max) v = v.slice(0, parseInt(max, 10));
+                    if (el.value !== v) el.value = v;
+                });
+                el.addEventListener('keydown', function (e) {
+                    // Allow control keys, block e, +, - which number inputs accept
+                    if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault();
+                });
+            });
+
+            // Harden number fields (like Amount) to avoid e/E/+/-
+            document.querySelectorAll('input[type="number"]').forEach(function (el) {
+                el.addEventListener('keydown', function (e) {
+                    if (["e", "E", "+", "-"].includes(e.key)) e.preventDefault();
+                });
+            });
+
+            // Client-side Luhn validation for immediate feedback (server still validates)
+            function luhnValid(num) {
+                let sum = 0, dbl = false;
+                for (let i = num.length - 1; i >= 0; i--) {
+                    let d = num.charCodeAt(i) - 48; // '0' -> 48
+                    if (dbl) { d *= 2; if (d > 9) d -= 9; }
+                    sum += d; dbl = !dbl;
+                }
+                return sum % 10 === 0;
+            }
+            const card = document.getElementById('CardNumber');
+            if (card) {
+                card.addEventListener('input', function () {
+                    const digits = card.value.replace(/\D+/g, '');
+                    if (digits.length >= 13 && digits.length <= 19) {
+                        card.setCustomValidity(luhnValid(digits) ? '' : 'Invalid card number');
+                    } else {
+                        card.setCustomValidity('');
+                    }
+                });
+            }
+        })();
+    </script>
 }
