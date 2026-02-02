@@ -1,1 +1,10 @@
 .vs
+src/Assessment.Infrastructure/bin
+src/Assessment.Infrastructure/obj
+src/Assessment.Web/bin
+src/Assessment.Web/obj
+src/Assessment.Application/bin
+src/Assessment.Application/obj
+src/Assessment.Domain/bin
+src/Assessment.Domain/obj
+.vscode
