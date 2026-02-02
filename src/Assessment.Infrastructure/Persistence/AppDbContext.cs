@@ -103,6 +103,10 @@ public class AppDbContext : DbContext
             e.Property(x => x.AttemptCount).HasDefaultValue(0);
             e.Property(x => x.CreationTimeUtc).HasDefaultValueSql("SYSUTCDATETIME()");
 
+            e.Property(x => x.CardLast4).HasMaxLength(4);
+            e.Property(x => x.CardExpMonth);
+            e.Property(x => x.CardExpYear);
+
         });
     }
 }

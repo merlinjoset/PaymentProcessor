@@ -110,6 +110,9 @@ public class EfPaymentRepository : IPaymentRepository
         CreationTimeUtc = e.CreationTimeUtc,
         LastTriedAtUtc = e.LastTriedAtUtc,
         LastError = e.LastError,
+        CardLast4 = e.CardLast4,
+        CardExpMonth = e.CardExpMonth,
+        CardExpYear = e.CardExpYear,
         Provider = e.Provider == null ? null : new PaymentProvider
         {
             Id = e.Provider.Id,
@@ -131,6 +134,9 @@ public class EfPaymentRepository : IPaymentRepository
         AttemptCount = d.AttemptCount,
         CreationTimeUtc = d.CreationTimeUtc == default ? DateTime.UtcNow : d.CreationTimeUtc,
         LastTriedAtUtc = d.LastTriedAtUtc,
-        LastError = d.LastError
+        LastError = d.LastError,
+        CardLast4 = d.CardLast4,
+        CardExpMonth = d.CardExpMonth,
+        CardExpYear = d.CardExpYear
     };
 }

@@ -1,4 +1,5 @@
 using Assessment.Application.Abstractions;
+using Assessment.Application.Dtos.Auth;
 using Assessment.Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,5 +53,38 @@ public class EfUserManagementRepository : IUserManagementRepository
     }
 
     public Task SaveChangesAsync(CancellationToken ct) => _db.SaveChangesAsync(ct);
-}
 
+    public async Task<List<UserListItemDto>> GetUsersAsync(CancellationToken ct)
+    {
+        var users = await _db.Users
+            .AsNoTracking()
+            .Select(u => new UserListItemDto
+            {
+                Id = u.Id,
+                Email = u.Email,
+                UserName = u.UserName,
+                Roles = new List<string>()
+            })
+            .ToListAsync(ct);
+
+        var roleMap = await _db.UserRoles
+            .AsNoTracking()
+            .Select(ur => new { ur.UserId, RoleName = ur.Role.Name })
+            .ToListAsync(ct);
+
+        var dict = roleMap.GroupBy(x => x.UserId)
+            .ToDictionary(g => g.Key, g => g.Where(x => !string.IsNullOrWhiteSpace(x.RoleName))
+                                            .Select(x => x.RoleName!)
+                                            .Distinct(StringComparer.OrdinalIgnoreCase)
+                                            .OrderBy(r => r)
+                                            .ToList());
+
+        foreach (var u in users)
+        {
+            if (dict.TryGetValue(u.Id, out var roles))
+                u.Roles = roles;
+        }
+
+        return users.OrderBy(u => u.Email ?? u.UserName).ToList();
+    }
+}

@@ -12,6 +12,13 @@ public class UsersController : Controller
     private readonly UserAdminService _svc;
     public UsersController(UserAdminService svc) { _svc = svc; }
 
+    [HttpGet("/Users")]
+    public async Task<IActionResult> Index(CancellationToken ct)
+    {
+        var users = await _svc.GetUsersAsync(ct);
+        return View(users);
+    }
+
     [HttpGet("/Users/Create")]
     public IActionResult Create()
         => View(new CreateUserRequestDto());
@@ -30,9 +37,8 @@ public class UsersController : Controller
         }
         catch (InvalidOperationException ex)
         {
-            ModelState.AddModelError(string.Empty, ex.Message);
+            ModelState.AddModelError(nameof(CreateUserRequestDto.Email), ex.Message);
             return View(dto);
         }
     }
 }
-

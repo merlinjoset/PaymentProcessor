@@ -38,6 +38,8 @@
                             <th class="text-end">Amount</th>
                             <th>Currency</th>
                             <th>Status</th>
+                            <th>Card</th>
+                            <th>Expiry</th>
                             <th class="text-end">Attempts</th>
                             <th>Created Date</th>
                             <th class="text-end" style="width:180px;">Actions</th>
@@ -73,6 +75,20 @@
 
                                 <td>
                                     <span class="badge @badgeClass">@statusText</span>
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(p.CardLast4))
+                                    {
+                                        <span class="text-muted">**** **** **** @p.CardLast4</span>
+                                    }
+                                    else { <span class="text-muted">-</span> }
+                                </td>
+                                <td>
+                                    @if (p.CardExpMonth.HasValue && p.CardExpYear.HasValue)
+                                    {
+                                        <span class="text-muted">@p.CardExpMonth.Value.ToString("00")/@(p.CardExpYear.Value % 100).ToString("00")</span>
+                                    }
+                                    else { <span class="text-muted">-</span> }
                                 </td>
 
                                 <td class="text-end">

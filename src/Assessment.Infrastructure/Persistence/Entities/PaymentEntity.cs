@@ -20,4 +20,9 @@ public class PaymentEntity
     public DateTime CreationTimeUtc { get; set; }
     public DateTime? LastTriedAtUtc { get; set; }
     public string? LastError { get; set; }
+
+    // Card (summary only)
+    public string? CardLast4 { get; set; }
+    public int? CardExpMonth { get; set; }
+    public int? CardExpYear { get; set; }
 }

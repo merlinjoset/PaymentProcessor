@@ -8,6 +8,6 @@ public interface IUserManagementRepository
     Task EnsureRoleExistsAsync(string roleName, CancellationToken ct);
     Task AssignRoleAsync(Guid userId, string roleName, CancellationToken ct);
 
+    Task<List<Assessment.Application.Dtos.Auth.UserListItemDto>> GetUsersAsync(CancellationToken ct);
     Task SaveChangesAsync(CancellationToken ct);
 }
-

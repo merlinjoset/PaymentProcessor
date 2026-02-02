@@ -59,10 +59,17 @@
       - `dotnet run` and copy the printed hash.
   - Insert minimal rows (adjust GUIDs/emails as desired) in your database:
     - Users table:
-      `INSERT INTO Users (Id, UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount)
-       VALUES ('11111111-1111-1111-1111-111111111111','admin','admin@example.com',1,'<PASTE_HASH>','',0,0,0,0);`
+      `INSERT INTO Users (Id, UserName, Email, EmailConfirmed, PasswordHash, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled, AccessFailedCount)
+       VALUES ('11111111-1111-1111-1111-111111111111','admin','admin@example.com',1,'<PASTE_HASH>',1,0,0,0);`
+
     - Roles table:
-      `INSERT INTO Roles (Id, Name) VALUES ('22222222-2222-2222-2222-222222222222','admin');`
+      `USE [AssessmentDb]
+      GO
+      INSERT [dbo].[Roles] ([Id], [Name]) VALUES (N'f6987b04-a5fc-4bed-8506-02ddca71ea99', N'user')
+      GO
+      INSERT [dbo].[Roles] ([Id], [Name]) VALUES (N'5e4edd62-406a-4035-9d8a-d86c39bbcace', N'admin')
+      GO`
+
     - UserRoles table:
       `INSERT INTO UserRoles (UserId, RoleId) VALUES ('11111111-1111-1111-1111-111111111111','22222222-2222-2222-2222-222222222222');`
 

@@ -37,5 +37,7 @@ public class UserAdminService
         await _repo.SaveChangesAsync(ct);
         return id;
     }
-}
 
+    public Task<List<UserListItemDto>> GetUsersAsync(CancellationToken ct)
+        => _repo.GetUsersAsync(ct);
+}

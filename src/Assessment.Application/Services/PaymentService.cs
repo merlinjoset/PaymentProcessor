@@ -24,6 +24,10 @@ public class PaymentService
             var provider = await _providers.GetAsync(dto.ProviderId, ct) ?? throw new InvalidOperationException("Provider not found.");
             if (!provider.IsActive) throw new InvalidOperationException("Provider inactive.");
 
+            // derive card last4 (do not persist full PAN or CVC)
+            var digits = new string((dto.CardNumber ?? string.Empty).Where(char.IsDigit).ToArray());
+            var last4 = digits.Length >= 4 ? digits[^4..] : null;
+
             var p = new Payment
             {
                 Id = Guid.NewGuid(),
@@ -33,7 +37,10 @@ public class PaymentService
                 Currency = dto.Currency.ToUpperInvariant(),
                 Reference = dto.Reference.Trim(),
                 Status = PaymentStatus.Pending,
-                CreationTimeUtc = DateTime.UtcNow
+                CreationTimeUtc = DateTime.UtcNow,
+                CardLast4 = last4,
+                CardExpMonth = dto.ExpiryMonth,
+                CardExpYear = dto.ExpiryYear
             };
 
             await _payments.AddAsync(p, ct);

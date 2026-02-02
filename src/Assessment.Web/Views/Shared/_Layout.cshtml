@@ -64,6 +64,7 @@
         var path = Context?.Request?.Path.Value?.ToLowerInvariant() ?? "";
         var isPayments = path.StartsWith("/payments");
         var isProviders = path.StartsWith("/providers");
+        var isUsers = path.StartsWith("/users");
         var isAccount = path.StartsWith("/account");
 
         var display =
@@ -98,6 +99,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link @(isProviders ? "active" : "")" asp-controller="Providers" asp-action="Index">Providers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(isUsers ? "active" : "")" asp-controller="Users" asp-action="Index">Users</a>
                             </li>
                         }
                     </ul>
