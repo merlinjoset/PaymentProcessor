@@ -21,8 +21,6 @@ public class Payment
     public DateTime CreationTimeUtc { get; set; } = DateTime.UtcNow;
     public DateTime? LastTriedAtUtc { get; set; }
     public string? LastError { get; set; }
-
-    // Card summary (do not store full PAN or CVC)
     public string? CardLast4 { get; set; }
     public int? CardExpMonth { get; set; }
     public int? CardExpYear { get; set; }

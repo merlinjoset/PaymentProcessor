@@ -58,26 +58,26 @@ static class DbSeederInternals
             if (exists == 1)
             {
                 const string ensureHistory = @"IF OBJECT_ID(N'[__EFMigrationsHistory]', N'U') IS NULL
-BEGIN
-    CREATE TABLE [__EFMigrationsHistory](
-      [MigrationId] nvarchar(150) NOT NULL,
-      [ProductVersion] nvarchar(32) NOT NULL,
-      CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
-    );
-END;";
-                await db.Database.ExecuteSqlRawAsync(ensureHistory);
+                    BEGIN
+                        CREATE TABLE [__EFMigrationsHistory](
+                          [MigrationId] nvarchar(150) NOT NULL,
+                          [ProductVersion] nvarchar(32) NOT NULL,
+                          CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+                        );
+                    END;";
+                                    await db.Database.ExecuteSqlRawAsync(ensureHistory);
 
-                const string baseline = @"IF NOT EXISTS (SELECT 1 FROM [__EFMigrationsHistory] WHERE [MigrationId] = '20260202060642_InitialCreate')
-BEGIN
-    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-    VALUES ('20260202060642_InitialCreate', '8.0.8');
-END;";
+                                    const string baseline = @"IF NOT EXISTS (SELECT 1 FROM [__EFMigrationsHistory] WHERE [MigrationId] = '20260202060642_InitialCreate')
+                    BEGIN
+                        INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+                        VALUES ('20260202060642_InitialCreate', '8.0.8');
+                    END;";
                 await db.Database.ExecuteSqlRawAsync(baseline);
             }
         }
         catch
         {
-            // best effort
+           
         }
     }
 }
