@@ -100,6 +100,8 @@ builder.Services.AddScoped<IPaymentEvents, Assessment.Web.Hubs.SignalRPaymentEve
 // JWT login services
 builder.Services.AddScoped<IAuthUserRepository, AuthUserRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserManagementRepository, EfUserManagementRepository>();
+builder.Services.AddScoped<UserAdminService>();
 builder.Services.AddControllersWithViews();
 
 // FakeProvider client

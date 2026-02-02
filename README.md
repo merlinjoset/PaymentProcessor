@@ -82,6 +82,12 @@
   - The system enqueues processing; status updates arrive via SignalR and the page auto-refreshes on `paymentUpdated`.
   - Admins can retry failed payments (up to 3 attempts). The recurring retry job also re-enqueues eligible failures every 2 minutes.
 
+**User Management**
+- Admins can create users via UI:
+  - Navigate to `/Users/Create` (requires admin role).
+  - Provide Email, UserName, Password, and optionally mark as Admin.
+- API creation can be added similarly; currently only the UI endpoint is provided.
+
 **Known Limitations**
 - **No user/role seed:** There is no built-in user bootstrap; a manual SQL seed is required to log in.
 - **JWT key management:** The dev JWT secret lives in `appsettings.Development.json`. In production, store secrets in a secure provider (Key Vault, user secrets, or environment) and rotate regularly.
