@@ -33,7 +33,7 @@ public class UsersController : Controller
         {
             await _svc.CreateUserAsync(dto, ct);
             TempData["Msg"] = "User created.";
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Users");
         }
         catch (InvalidOperationException ex)
         {
