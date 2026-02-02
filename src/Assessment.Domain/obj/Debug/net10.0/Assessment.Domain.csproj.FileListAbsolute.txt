@@ -1,0 +1,11 @@
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\bin\Debug\net10.0\Assessment.Domain.deps.json
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\bin\Debug\net10.0\Assessment.Domain.dll
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\bin\Debug\net10.0\Assessment.Domain.pdb
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\Assessment.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\Assessment.Domain.AssemblyInfoInputs.cache
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\Assessment.Domain.AssemblyInfo.cs
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\Assessment.Domain.csproj.CoreCompileInputs.cache
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\Assessment.Domain.dll
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\refint\Assessment.Domain.dll
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\Assessment.Domain.pdb
+E:\Development\Assessment\PaymentProcessor\src\Assessment.Domain\obj\Debug\net10.0\ref\Assessment.Domain.dll

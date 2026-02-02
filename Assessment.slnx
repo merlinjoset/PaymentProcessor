@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Assessment.Application/Assessment.Application.csproj" />
+    <Project Path="src/Assessment.Domain/Assessment.Domain.csproj" />
+    <Project Path="src/Assessment.FakeProvider/Assessment.FakeProvider.csproj" />
+    <Project Path="src/Assessment.Infrastructure/Assessment.Infrastructure.csproj" />
+    <Project Path="src/Assessment.Web/Assessment.Web.csproj" />
+  </Folder>
+</Solution>
